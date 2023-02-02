@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,10 @@ export class AppComponent {
   data: any;
   loading: boolean = false;
   title = 'Weather in your city';
+  dates: any;
+  resData:any = [];
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private datePipe: DatePipe) {}
   
   setLocation(event: any){
     this.location = event.target.value
@@ -33,7 +36,13 @@ export class AppComponent {
           
           this.data = response;
           this.loading = false;
-          console.log("in second res", this.data?.list)
+          for(let item of this.data?.list){
+            this.dates = this.datePipe.transform(item.dt_txt,'dd/MM/yyyy');
+            if(!this.resData.find((d: any) => (this.datePipe.transform(d.dt_txt,'dd/MM/yyyy') === this.dates))) {
+              this.resData.push(item);
+            }
+          }
+          console.log(this.resData);
         });
       });
     }

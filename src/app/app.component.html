@@ -7,39 +7,36 @@
       <input class="input_data" type="text" (change)="setLocation($event)">
     </div>
     <div class="header_input">
-      <button type="button" (click)="searchInfo()" ><i class="fa fa-question-circle"></i>Search</button>
+      <button type="button" (click)="searchInfo()" ><i class="fa fa-question-circle"></i><b>Search</b></button>
     </div>
     <div class="header_input" *ngIf="loading">
       <img src="../assets/loader.gif" alt="loading" width="30" height="30"/>
     </div>
   </header>
   <div class="table_container">
-    <div *ngFor="let res of this.data?.list; let i = index">
-    <table>
-       <tr style="background-color: #ff6600; justify-content: center;">
-        <th>Date: {{res.dt_txt | date:'dd/MM/yyyy'}}</th>
-        <th></th>
-       </tr>
-       <tr style="background-color: #CCCCCC;">
-        <th>Temperature</th>
-        <th></th>
-       </tr>
-       <tr style="background-color: #CCCCCC; justify-content: center;
-       align-items: center;">
-        <td>Min</td>
-        <td>Max</td>
-       </tr>
-       <tr style="background-color: #CCCCCC;">
-        <td>{{res?.main?.temp_min}}</td>
-        <td>{{res?.main?.temp_max}}</td>
-       </tr>
-       <tr>
-        <th>Pressure</th>
-        <td>{{res?.main?.pressure}}</td>
-      </tr>
-      <th>Humadity</th>
-      <td>{{res?.main?.humidity}}</td>
-    </table>
+    <div *ngFor="let res of this.resData; let i = index">
+      <table>
+        <tr style="background-color: #ff6600;">
+          <th colspan="2">Date: {{res.dt_txt | date:'dd/MM/yyyy'}}</th>
+        </tr>
+        <tr style="background-color: #CCCCCC;">
+          <th colspan="2">Temperature</th>
+        </tr>
+        <tr style="background-color: #CCCCCC;">
+          <td>Min</td>
+          <td>Max</td>
+        </tr>
+        <tr style="background-color: #CCCCCC;">
+          <td>{{res?.main?.temp_min}}</td>
+          <td>{{res?.main?.temp_max}}</td>
+        </tr>
+        <tr>
+          <th>Pressure</th>
+          <td>{{res?.main?.pressure}}</td>
+        </tr>
+        <th>Humadity</th>
+        <td>{{res?.main?.humidity}}</td>
+      </table>
 </div>
 
 <router-outlet></router-outlet>
